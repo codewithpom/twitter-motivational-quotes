@@ -37,7 +37,7 @@ print(tweet)
 
 while True:
     current_time = datetime.now(timezone("Asia/Kolkata"))
-    if current_time.hour == 5:
+    if current_time.hour == 5 or (current_time.hour == 15 or current_time.minute == 30):
         print("Making tweet")
         api.update_status(tweet)
         break
