@@ -3,7 +3,7 @@ name: "Tweet the Quote"
 on:
   push:
     branches: 
-      - master
+      - main
     
   schedule:
     - cron:  '00 22 * * *'
