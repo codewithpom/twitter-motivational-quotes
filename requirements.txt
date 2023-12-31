@@ -1,3 +1,2 @@
-tweepy==4.4.0
-requests==2.26.0
-pytz==2021.3
+tweepy
+requests
