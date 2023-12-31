@@ -1,12 +1,10 @@
 import requests
 import tweepy
 import random
-from pytz import timezone
-from datetime import datetime
 import sys
 
 
-HASH_TAGS = "#quoteoftheday #motivation #MotivationalQuotes"
+HASH_TAGS = "#motivation #MotivationalQuotes"
 
 CONSUMER_KEY = sys.argv[1]
 CONSUMER_SECRET = sys.argv[2]
@@ -21,26 +19,27 @@ auth.set_access_token(TOKEN, TOKEN_SECRET)
 # Create API object
 api = tweepy.API(auth)
 
+client = tweepy.Client(consumer_key=CONSUMER_KEY,
+                       consumer_secret=CONSUMER_SECRET,
+                       access_token=TOKEN,
+                       access_token_secret=TOKEN_SECRET)
 
-
-url = "https://type.fit/api/quotes"
+url = "https://zenquotes.io/?api=quotes"
 
 data = requests.get(url).json()
 quote_object = random.choice(data)
 
-qoute = quote_object['text']
-qoute_author = quote_object['author']
+qoute = quote_object['q']
+qoute_author = quote_object['a']
 
 tweet = f"{qoute}\n\n{qoute_author}\n{HASH_TAGS}"
 
 print(tweet)
 
-while True:
-    current_time = datetime.now(timezone("Asia/Kolkata"))
-    if current_time.hour == 5 or current_time.hour == 21:
-        print("Making tweet")
-        api.update_status(tweet)
-        break
+    
+print("Making tweet")
+client.create_tweet(text=tweet)
+
 
 
 
